@@ -1,0 +1,8 @@
+{
+  "name": "registrar",
+  "author": "andrew-m-higgs",
+  "publish": false,
+  "dependencies": {
+    "lib": "latest"
+  }
+}
