@@ -1,0 +1,6 @@
+{
+  "name": "andrew-m-higgs/registrar",
+  "timeout": 30000,
+  "connector": false,
+  "events": {}
+}
