@@ -21,7 +21,7 @@ Commands used by the Creator / Admin:
 |----|----|
 |**/config-creator-wallets**|Used to set the wallet addresses of the Creator Wallet|
 |**/config-opt-in-token**|Used to set the opt-in token which will be used to confirm wallet ownership|
-|/config-project-name**|Used to set the project name used by the bot for messages.|
+|**/config-project-name**|Used to set the project name used by the bot for messages.|
 |**/config-registered-role**|Used to set the role for all members who have a registered wallet. e.g. @Registered|
 |**/config-owner1-role**|Used to set the role for 1 or more NFTs. e.g. @Owner|
 |**/config-owner2-role**<br />**/config-owner3-role**<br />**/config-owner4-role**<br />**/config-owner5-role**|Used to set the role for x or more NFTs (options require: Role and x (the # of NFTs)|
