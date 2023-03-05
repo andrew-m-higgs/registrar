@@ -1,9 +1,4 @@
-<div align="center">
-  <a href="https://open.autocode.com/">
-    <img src="https://openclipart.org/download/181432/Rocket.svg" width="192"><br />
-    Add to Autocode
-  </a>
-</div>
+[<img src="https://open.autocode.com/static/images/open.svg?" width="192">](https://open.autocode.com/)
 
 # registrar
 
