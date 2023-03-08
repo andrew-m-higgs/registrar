@@ -6,9 +6,9 @@ const lib = require('lib')({token: process.env.STDLIB_SECRET_TOKEN});
 const config    = require('../../../../helpers/config.js');
 const functions = require('../../../../helpers/functions.js');
 
-let walletStrings = context.params.event.data.options[0].value;
-let guild_id = context.params.event.guild_id;
-let isAdmin = functions.isAdmin(context);
+let walletStrings   = context.params.event.data.options[0].value;
+let guild_id        = context.params.event.guild_id;
+let isAdmin         = functions.isAdmin(context);
 let message_content = "";
 
 if (isAdmin) {
