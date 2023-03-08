@@ -1,4 +1,5 @@
 const lib = require('lib')({token: process.env.STDLIB_SECRET_TOKEN});
+const config    = require('./config.js');
 
 async function addRole(roleID, user_id, guild_id) {
   console.log('(functions.js) )Adding role (' + roleID + ')... ');
@@ -37,5 +38,32 @@ module.exports = {
       delRole(removeRoles[i], user_id, guild_id);
     }
   },
+
+  isAdmin: async (context) => {
+    let guild_id      = context.params.event.guild_id;
+    let member_id     = context.params.event.member.user.id;
+    let member_roles  = context.params.event.member.roles;
+    let adminRoleId   = 0;
+    let adminRoleName = config.adminRoleName();
+    let server_roles  = await lib.discord.guilds['@0.2.4'].roles.list({
+      guild_id: guild_id,
+    });
+
+    // get admin role id
+    for (let i = 0; i < server_roles.length; i++) {
+      if (server_roles[i].name == adminRoleName) {
+        adminRoleId = server_roles[i].id
+      }
+    }
+
+    // check if member has admin role
+    if (member_roles.includes(adminRoleId)) {
+      console.log("Member (" + member_id + ") is an admin.")
+      return true;
+    }
+    
+    console.log("Member (" + member_id + ") is not an admin.");
+    return false;
+  }
 }
 
