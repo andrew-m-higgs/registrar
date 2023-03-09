@@ -2,45 +2,29 @@ console.log('###################################################################
 console.log('        command/config-opt-in-token.js STARTING...')
 console.log('################################################################################')
 
-const lib = require('lib')({token: process.env.STDLIB_SECRET_TOKEN});
+const lib       = require('lib')({token: process.env.STDLIB_SECRET_TOKEN});
 const config    = require('../../../../helpers/config.js');
 const functions = require('../../../../helpers/functions.js');
 
-let optInToken = context.params.event.data.options[0].value;
+let optInToken      = context.params.event.data.options[0].value;
+let guild_id        = context.params.event.guild_id;
+let isAdmin         = functions.isAdmin(context);
+let message_content = "";
 
-//Need a function to determine admin status of member
-// functions.isAdmin()
-let adminID    = -1
-let guild_id   = context.params.event.guild_id;
-let user_roles = context.params.event.member.roles;
-
-//get list of server roles
-let roles = await lib.discord.guilds['@0.2.4'].roles.list({
-  guild_id: guild_id,
-});
-
-//get the ID of the adminRoleName
-for (let i = 0; i < roles.length; i++){
-  if (roles[i].name == config.adminRoleName()){
-    adminID = roles[i].id;
-  }
-}
-
-//add the project_name if member has admin role
-if (user_roles.includes(adminID)) {
+if (isAdmin) {
+  // IS AN ADMIN
   await lib.utils.kv['@0.1.16'].set({
-    key: "ProjectName-" + guild_id,
-    value: projectName
-  });
+    key: "OptInToken-" + guild_id,
+    value: optInToken
+  }).catch(console.error(e));
 
-  //let the member know it happened
-  let followUp = await lib.discord.interactions['@1.0.1'].responses.ephemeral.create({
-    token: `${context.params.event.token}`,
-    content: 'The project name was set to **' + projectName + '**. Run the command again to change it. :-)'
-  })
+  message_content = "The opt-in token was set to ASA ID **" + optInToken + "**. Re-run the command to change it."
 } else {
-  let followUp = await lib.discord.interactions['@1.0.1'].responses.ephemeral.create({
-    token: `${context.params.event.token}`,
-    content: 'You do not have permission to set the project name to **' + projectName + '**. Run the command again after being given the correct role to set it. :-)'
-  })
+  // NOT AN ADMIN
+  message_content = "You do not have permission to run this command. Run the command again after being given the correct role. :-)"
 }
+
+let message = await lib.discord.interactions['@1.0.1'].responses.ephemeral.create({
+    token: context.params.event.token,
+    content: message_content
+})
