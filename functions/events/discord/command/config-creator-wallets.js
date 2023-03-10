@@ -14,7 +14,7 @@ let message_content = "";
 if (isAdmin) {
   // IS AN ADMIN
   await lib.utils.kv['@0.1.16'].set({
-    key: "CreatorWallets: " + guild_id,
+    key: "CreatorWallets-" + guild_id,
     value: walletStrings
   }).catch(console.error(e));
 
