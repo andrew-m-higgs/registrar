@@ -26,6 +26,10 @@ async function delRole(roleID, user_id, guild_id) {
 
 module.exports = {
   // PROCEDURES
+
+  //////////////////////////////////////////////////////////
+  // changeRoles() - add new role and make sure all others 
+  //                 are removed
   changeRoles: async (givenRole, removeRoles, user_id, guild_id) => {
     
     // Add new role
@@ -39,6 +43,8 @@ module.exports = {
     }
   },
 
+  //////////////////////////////////////////////////////////
+  // isAdmin() - Check if a member is an admin
   isAdmin: async (context) => {
     let guild_id      = context.params.event.guild_id;
     let member_id     = context.params.event.member.user.id;
@@ -64,6 +70,20 @@ module.exports = {
     
     console.log("Member (" + member_id + ") is not an admin.");
     return false;
-  }
+  },
+
+  //////////////////////////////////////////////////////////
+  // getCreatorWallets() - return an array of Creator 
+  //                       Wallets stored in key value pair
+  getCreatorWallets: async (context) => {
+    let guild_id      = context.params.event.guild_id;
+
+    let walletStrings = await lib.utils.kv['@0.1.16'].get({
+      key: "CreatorWallets-" + guild_id
+    });
+
+    return walletStrings.split(",");    
+  },
+
 }
 
