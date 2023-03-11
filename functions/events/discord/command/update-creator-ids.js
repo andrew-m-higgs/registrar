@@ -34,7 +34,7 @@ if (isAdmin) {
       "type": "rich",
       "title": walletArray[i],
       "description": "This wallet has **" + assetResult.data.assets.length + "** assets in it.",
-      "color": 0x00FF00
+      "color": config.green(),
     };
     embeds.push(embed);
 
@@ -47,16 +47,16 @@ if (isAdmin) {
     value: creatorAssets
   });
 
-  message_content = ":green_circle: | The creator ASA IDs have been updated. A total of **" + numASA + "** were added. Re-run the command to change it."
+  message_content = config.successMark() + " The creator ASA IDs have been updated. A total of **" + numASA + "** were added. Re-run the command to change it."
 } else {
     // NOT AN ADMIN
-    message_content = ":red_circle: | You do not have permission to run this command. Run the command again after being given the correct role. :-)"
+    message_content = config.failMark() + " You do not have permission to run this command. Run the command again after being given the correct role. :-)"
 }
 
 
 console.log(embeds);
 
-let message = await lib.discord.interactions['@1.0.1'].responses.ephemeral.create({
+let message = await lib.discord.interactions['@1.0.1'].followups.ephemeral.create({
     token: context.params.event.token,
     content: message_content,
     "embeds": embeds,
