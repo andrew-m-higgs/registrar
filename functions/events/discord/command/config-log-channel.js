@@ -8,7 +8,7 @@ const functions = require('../../../../helpers/functions.js');
 
 let logChannel      = context.params.event.data.options[0].value;
 let guild_id        = context.params.event.guild_id;
-let isAdmin         = functions.isAdmin(context);
+let isAdmin         = await functions.isAdmin(context);
 let message_content = "";
 
 if (isAdmin) {
