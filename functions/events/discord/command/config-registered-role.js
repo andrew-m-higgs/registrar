@@ -18,10 +18,10 @@ if (isAdmin) {
     value: regRole
   }).catch(console.error(e));
 
-  message_content = "The registered role was set to **" + regRole + "**. Re-run the command to change it."
+  message_content = config.successMark() + " The registered role was set to **" + regRole + "**. Re-run the command to change it."
 } else {
   // NOT AN ADMIN
-  message_content = "You do not have permission to run this command. Run the command again after being given the correct role. :-)"
+  message_content = config.failMark() + " You do not have permission to run this command. Run the command again after being given the correct role. :-)"
 }
 
 let message = await lib.discord.interactions['@1.0.1'].responses.ephemeral.create({
