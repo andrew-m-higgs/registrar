@@ -16,12 +16,12 @@ if (isAdmin) {
   await lib.utils.kv['@0.1.16'].set({
     key: "CreatorWallets-" + guild_id,
     value: walletStrings
-  }).catch(console.error(e));
+  });
 
-  message_content = "The creator wallet(s) were set to (**" + walletStrings + "**). Re-run the command to change it/them."
+  message_content = ":green_circle: | The creator wallet(s) were set to (**" + walletStrings + "**). Re-run the command to change it/them."
 } else {
   // NOT AN ADMIN
-  message_content = "You do not have permission to run this command. Run the command again after being given the correct role. :-)"
+  message_content = ":red_circle: | You do not have permission to run this command. Run the command again after being given the correct role. :-)"
 }
 
 let message = await lib.discord.interactions['@1.0.1'].responses.ephemeral.create({
